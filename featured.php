@@ -3,34 +3,32 @@
 	@mysql_connect("localhost", "root", "vertrigo");
 	@mysql_select_db("rwa_projekt");
 	
-	$query = "SELECT * FROM korisnik";
-	$result = mysql_query($query);
 	
+	$left=5;
+    $top=75;
     
-	print("<table>");
-	for($i=0; $i<4; $i++){
-    $id=$i+1;
-	$row = mysql_fetch_array($result, MYSQL_ASSOC);	
-	print("<tr><td>");
-	print($row["userID"]);
-	print("</td>");
-		print("<td>");
-	print($row["username"]);
-	print("</td>");
-		print("<td>");
-	print($row["pass"]);
-	print("</td>");
-		print("<td>");
-	print($row["mail"]);
-	print("</td>");
-		print("<td>");
-	print($row["about"]);
-	print("</td>");
 
-	print("</tr>");
-    print("<img src=\"getimg.php?id=". $id . "\">");
+	for($i=0; $i<6; ++$i){
+        $id=$i+1;
+        $query = "SELECT picID, username, name, description FROM korisnik, picture WHERE userID=uID AND picID='" . $id . "'";
+	    $result = mysql_query($query);
+        
+        $row = mysql_fetch_array($result, MYSQL_ASSOC);	
+        
+        print("<img style=\"height: 150px; width: 250px; padding:15px; position:absolute; left:" . $left .  "px; top:" . $top ."px;\" src=\"getimg.php?id=". $id . "\">");
+        print("<div class=\"coverDiv\" style=\" left:" . $left .  "; top:" . $top .";\">");
+            print("<h1>" . $row['name'] . "</h1>");
+            print("By: " . $row['username'] . "<br>");
+            print("About: " . $row['description']);
+        print("</div>");
+        
+        $left = $left + 300;
+        if($i==2||$i==5){
+            $top=$top+200;
+            $left=5;
+        }
 	}
-	print("</table>");
+
 	mysql_free_result($result);
     mysql_close();
 ?>
