@@ -8,11 +8,13 @@
 
 	<div id="header">
 	
-		<img class="logo" src="img/logo.png" >
-		<div id="log"><a href="login.php">Log in.</a> <a href="signup.php">Sign Up.</a></div>
+		<a href="index.php"><img class="logo" src="img/logo.png" ></a>
+		<div id="log">
+            <?php include("logandsign.php"); ?>
+        </div>
 	
 	
-		<form method="get" action="http://www.google.com">
+		<form method="get" action="searchResult.php">
 		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
 		</form>
 	<div class="tfclear"></div>
