@@ -19,7 +19,6 @@
         print("<div class=\"coverDiv\" style=\" left:" . $left .  "; top:" . $top .";\">");
             print("<h1>" . $row['name'] . "</h1>");
             print("By: " . $row['username'] . "<br>");
-            print("About: " . $row['description']);
         print("</div>");
         
         $left = $left + 300;
