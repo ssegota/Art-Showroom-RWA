@@ -16,7 +16,7 @@
         $row = mysql_fetch_array($result, MYSQL_ASSOC);	
         
         print("<img style=\"height: 150px; width: 250px; padding:15px; position:absolute; left:" . $left .  "px; top:" . $top ."px;\" src=\"getimg.php?id=". $id . "\">");
-        print("<div class=\"coverDiv\" style=\" left:" . $left .  "; top:" . $top .";\">");
+        print("<a href=picture.php?id=".$id."><div class=\"coverDiv\" style=\" left:" . $left .  "; top:" . $top .";\">");
             print("<h1>" . $row['name'] . "</h1>");
             print("By: " . $row['username'] . "<br>");
         print("</div>");

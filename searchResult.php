@@ -84,7 +84,7 @@
     
     for($i=0; $i<$length;$i++){
         $rowCategory = mysql_fetch_array($resultCategory, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowCategory['picID'] ."\">");
+        print("<a href=\"picture.php?id=". $rowCategory['picID'] ."\">");
         print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowCategory['picID'] . "\">");
         
         print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
@@ -117,7 +117,7 @@
     
     for($i=0; $i<$length;$i++){
         $rowTag = mysql_fetch_array($resultTag, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowTag['picID'] ."\">");
+        print("<a href=\"picture.php?id=". $rowTag['picID'] ."\">");
         print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowTag['picID'] . "\">");
         
         print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
@@ -141,14 +141,14 @@
     
     if($rowNUR['COUNT(*)']>6){
         $length=6;
-        print("<a href=\"showall.php?q=" . $term. "&t=user\">". $rowNUR['COUNT(*)']." results found. See all.</a><br>");
+        print("<a href=\"showall.php?q=" . $term. "&t=user.php\">". $rowNUR['COUNT(*)']." results found. See all.</a><br>");
     }
     else
         $length=$rowNUR['COUNT(*)'];
     
     for($i=0; $i<$length;$i++){
         $rowUser = mysql_fetch_array($resultUser, MYSQL_ASSOC);
-        print("<a href=\"user?id=". $rowUser['userID'] ."\">");
+        print("<a href=\"user.php?id=". $rowUser['userID'] ."\">");
         if($rowUser['avatar'])
             print("<img style=\"position:relative; top: 10px;   height: 50px; width: 50px; padding:5px; display:inline-block; \" src=\"getAvatar.php?uid=". $rowUser['userID'] . "\">");
         else

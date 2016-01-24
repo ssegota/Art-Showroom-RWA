@@ -158,6 +158,8 @@
     }
     
     .coverDiv:hover{
+        -webkit-transition: opacity 1s; /* Safari */
+        transition: opacity 1s;
         opacity: 0.9;
     }
     
@@ -186,6 +188,78 @@
         top:0px;
      }
      
+     .avatar{
+         width:100px;
+         height:100px;
+         border: solid;
+         border-width: 1px;
+     }
+      .avatar2{
+         width:12px;
+         height:12px;
+         border: solid;
+         border-width: 1px;
+     }
+     
+     .userHolder, .aboutHolder{
+         width: 100%;
+         height:auto;
+         position: relative;
+         top: 0px;
+         text-align:center;
+        padding: 15px;
+     }
+     
+     .aboutHolder{
+         width: 400px;
+           position: relative;
+           top:0px;
+  left: 50%;
+  margin-left: -200px;
+     }
+     
+     .userHolder2{
+           position: relative;
+           top:0px;
+
+         right: -100px;
+         padding: 10px;
+         width: 100px;
+         text-align: right;
+         display: inline-block;
+         font-size:12px;
+     }
+     
+     #contact{
+          position: relative;
+           top:0px;
+
+         left:750px;
+         padding: 10px;
+         width: 100px;
+         text-align: right;
+         display: inline-block;
+         
+     }
+     
+     #commission{
+                   position: relative;
+           top:0px;
+        right: 100px;
+         background-color:darkcyan;
+                  padding: 0px;
+         width: 100px;
+         text-align: center;
+         height: 25px;
+         display: inline-block;
+         font-size: 12px;
+         color: white;
+         line-height: 25px;
+     }
+     .contactLink{
+         width: 25px;
+         height: 25px;
+     }
      a{
          color: darkcyan;
      }
@@ -193,4 +267,12 @@
      a:visited{
          color: black;
      }
-        
+     
+     #bottomDiv{
+        width: 880px;
+        position: absolute;
+        bottom: 0px;
+        padding: 5px;
+        background-color: white; 
+        height: 150px;
+     }

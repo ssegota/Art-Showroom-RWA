@@ -51,7 +51,7 @@
     
     for($i=0; $i<6; $i++){ 
         $rowCategory = mysql_fetch_array($resultCategory, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowCategory['picID'] ."\">");
+        print("<a href=\"picture.php?id=". $rowCategory['picID'] ."\">");
         print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
         print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowCategory['picID'] . "\">");
         
@@ -84,7 +84,7 @@
     $rowNTR = mysql_fetch_array($numberTagResults, MYSQL_ASSOC);
     for($i=0; $i<$rowNTR['COUNT(*)'];$i++){
         $rowTag = mysql_fetch_array($resultTag, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowTag['picID'] ."\">");
+        print("<a href=\"picture.php?id=". $rowTag['picID'] ."\">");
         print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
         print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowTag['picID'] . "\">");
         
@@ -99,7 +99,7 @@
     mysql_free_result($numberTagResults);
     }
     
-    else{
+    else if($type=="user"){
     for($i=0; $i<sizeof($dividedTerm); $i++){
         
         if($i==0){
@@ -119,7 +119,7 @@
     
     for($i=0; $i<$rowNUR['COUNT(*)'];$i++){
         $rowUser = mysql_fetch_array($resultUser, MYSQL_ASSOC);
-        print("<a href=\"user?id=". $rowUser['userID'] ."\">");
+        print("<a href=\"user.php?id=". $rowUser['userID'] ."\">");
         print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
         if($rowUser['avatar'])
             print("<img style=\"position:relative; top: 10px;   height: 50px; width: 50px; padding:5px; display:inline-block; \" src=\"getAvatar.php?uid=". $rowUser['userID'] . "\">");
@@ -132,8 +132,28 @@
        
         
     }
-        mysql_free_result($resultUser);
+    mysql_free_result($resultUser);
     mysql_free_result($numberUserResults);
+    }
+    
+    else{
+        $query=$_GET['q'];
+        
+        $result = mysql_query($query);
+        $countQuery= "SELECT COUNT(*) FROM picture WHERE uID='" . $_GET['t']."'";	
+        
+        $numberResults = mysql_query($countQuery);
+        $rowNR = mysql_fetch_array($numberResults, MYSQL_ASSOC);
+        for($i=0; $i<$rowNR['COUNT(*)']; $i++){
+        $row = mysql_fetch_array($result, MYSQL_ASSOC);	
+        print("<a href=\"picture.php?id=". $row['picID'] ."\">");
+         print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
+        print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $row['picID'] . "\">");
+        
+        print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
+        print($row['name']);
+        print("</div></div></a>");
+    }
     }
     mysql_close();
 ?>
