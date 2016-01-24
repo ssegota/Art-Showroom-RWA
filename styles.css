@@ -185,4 +185,12 @@
         position:absolute;
         top:0px;
      }
+     
+     a{
+         color: darkcyan;
+     }
+     
+     a:visited{
+         color: black;
+     }
         

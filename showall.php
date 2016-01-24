@@ -21,16 +21,18 @@
 	</div>
 	
 
-    <div id="mainContainer">                    
+    <div id="mainContainer">   
+
 <?php
+
     $term=strtoupper($_GET['q']);
     $dividedTerm=explode(" ", $term);
-	
+	$type=$_GET['t'];
+    
     @mysql_connect("localhost", "root", "vertrigo");
 	@mysql_select_db("rwa_projekt");
     
-    //Make queries
-    //Categories query
+    if($type=="category"){
     for($i=0; $i<sizeof($dividedTerm); $i++){
         
         if($i==0){
@@ -41,7 +43,63 @@
         }
     }
     $queryCategory.= ")";
-    //users query
+    
+    $resultCategory = mysql_query($queryCategory);
+    $countQueryCategory= "SELECT COUNT(*) FROM " . substr($queryCategory, 44);
+    $numberCategoryResults = mysql_query($countQueryCategory);
+    $rowNCR = mysql_fetch_array($numberCategoryResults, MYSQL_ASSOC);
+    
+    for($i=0; $i<6; $i++){ 
+        $rowCategory = mysql_fetch_array($resultCategory, MYSQL_ASSOC);
+        print("<a href=\"picture?id=". $rowCategory['picID'] ."\">");
+        print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
+        print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowCategory['picID'] . "\">");
+        
+        print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
+        print($rowCategory['username'] . "<br>");
+        print($rowCategory['name']);
+        print("</div>");
+        print("</div></a>");
+        
+    }
+    mysql_free_result($resultCategory);
+    mysql_free_result($numberCategoryResults);
+    }
+    
+    
+    else if($type=="tag"){
+    for($i=0; $i<sizeof($dividedTerm); $i++){
+        
+        if($i==0){
+            $queryTag="SELECT DISTINCT username,name, picID FROM tag, picture, pic_tag,korisnik WHERE uID=userID AND picID=p_id AND tagID=t_id AND (tagName=\"" . $dividedTerm[$i] . "\"";
+        }
+        else if($i>0){
+            $queryTag .= "OR tagName=\"" . $dividedTerm[$i] . "\"";
+        }
+    }
+    $queryTag.= ")";   
+    $resultTag= mysql_query($queryTag);
+    $countqueryTag = "SELECT COUNT(*) FROM " . substr($queryTag, 42);
+    $numberTagResults = mysql_query($countqueryTag);
+    $rowNTR = mysql_fetch_array($numberTagResults, MYSQL_ASSOC);
+    for($i=0; $i<$rowNTR['COUNT(*)'];$i++){
+        $rowTag = mysql_fetch_array($resultTag, MYSQL_ASSOC);
+        print("<a href=\"picture?id=". $rowTag['picID'] ."\">");
+        print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
+        print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowTag['picID'] . "\">");
+        
+        print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
+        print($rowTag['username'] . "<br>");
+        print($rowTag['name']);
+        print("</div></div></a>");
+        
+        
+    }  
+        mysql_free_result($resultTag);
+    mysql_free_result($numberTagResults);
+    }
+    
+    else{
     for($i=0; $i<sizeof($dividedTerm); $i++){
         
         if($i==0){
@@ -53,102 +111,16 @@
     }
     
     $queryUser.= ")";
-    /*
-    TAG query:
-    */
-    for($i=0; $i<sizeof($dividedTerm); $i++){
-        
-        if($i==0){
-            $queryTag="SELECT DISTINCT username,name, picID FROM tag, picture, pic_tag,korisnik WHERE uID=userID AND picID=p_id AND tagID=t_id AND (tagName=\"" . $dividedTerm[$i] . "\"";
-        }
-        else if($i>0){
-            $queryTag .= "OR tagName=\"" . $dividedTerm[$i] . "\"";
-        }
-    }
-    $queryTag.= ")";    
-    //Get and print category results
-    $resultCategory = mysql_query($queryCategory);
-    $countQueryCategory= "SELECT COUNT(*) FROM " . substr($queryCategory, 44);
-    $numberCategoryResults = mysql_query($countQueryCategory);
-    $rowNCR = mysql_fetch_array($numberCategoryResults, MYSQL_ASSOC);
-
-    print("<div class=\"searchDivider\" style=\"left:0px\">");
     
-    
-    if($rowNCR['COUNT(*)']>6){
-        $length=6;
-        print("<a href=\"showall.php?q=" . $term. "&t=category\">". $rowNCR['COUNT(*)']." results found. See all.</a><br>");
-    }
-    else
-        $length=$rowNCR['COUNT(*)'];
-    
-    for($i=0; $i<$length;$i++){
-        $rowCategory = mysql_fetch_array($resultCategory, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowCategory['picID'] ."\">");
-        print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowCategory['picID'] . "\">");
-        
-        print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
-        print($rowCategory['username'] . "<br>");
-        print($rowCategory['name']);
-        print("</div></a><br>");
-        
-    }
-    
-    //if($rowNCR['COUNT(*)']>0)
-        print("</div>"); 
-
-
-    mysql_free_result($resultCategory);
-    mysql_free_result($numberCategoryResults);
-    
-    //Get and print tag results
-    $resultTag= mysql_query($queryTag);
-    $countqueryTag = "SELECT COUNT(*) FROM " . substr($queryTag, 42);
-    $numberTagResults = mysql_query($countqueryTag);
-    $rowNTR = mysql_fetch_array($numberTagResults, MYSQL_ASSOC);
-    print("<div class=\"searchDivider\" style=\"left:297px\">");
-    
-    if($rowNTR['COUNT(*)']>6){
-        $length=6;
-        print("<a href=\"showall.php?q=" . $term. "&t=tag\">". $rowNTR['COUNT(*)']." results found. See all.</a><br>");
-    }
-    else
-        $length=$rowNTR['COUNT(*)'];
-    
-    for($i=0; $i<$length;$i++){
-        $rowTag = mysql_fetch_array($resultTag, MYSQL_ASSOC);
-        print("<a href=\"picture?id=". $rowTag['picID'] ."\">");
-        print("<img style=\"position:relative; top: 10px;   height: 50px; width: 75px; padding:5px; display:inline-block; \" src=\"getImg.php?id=". $rowTag['picID'] . "\">");
-        
-        print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
-        print($rowTag['username'] . "<br>");
-        print($rowTag['name']);
-        print("</div></a><br>");
-        
-        
-    }
-    print("</div>");  
- 
-
-    mysql_free_result($resultTag);
-    mysql_free_result($numberTagResults);
-    //Get and print user results
     $resultUser= mysql_query($queryUser);
     $countqueryUser = "SELECT COUNT(*) FROM " . substr($queryUser, 42);
     $numberUserResults = mysql_query($countqueryUser);
     $rowNUR = mysql_fetch_array($numberUserResults, MYSQL_ASSOC);
-    print("<div class=\"searchDivider\" style=\"right:0px\">");
     
-    if($rowNUR['COUNT(*)']>6){
-        $length=6;
-        print("<a href=\"showall.php?q=" . $term. "&t=user\">". $rowNUR['COUNT(*)']." results found. See all.</a><br>");
-    }
-    else
-        $length=$rowNUR['COUNT(*)'];
-    
-    for($i=0; $i<$length;$i++){
+    for($i=0; $i<$rowNUR['COUNT(*)'];$i++){
         $rowUser = mysql_fetch_array($resultUser, MYSQL_ASSOC);
         print("<a href=\"user?id=". $rowUser['userID'] ."\">");
+        print("<div style= \"padding:6px; border: dotted; border-width: 1px; display:inline-block;\">");
         if($rowUser['avatar'])
             print("<img style=\"position:relative; top: 10px;   height: 50px; width: 50px; padding:5px; display:inline-block; \" src=\"getAvatar.php?uid=". $rowUser['userID'] . "\">");
         else
@@ -156,14 +128,13 @@
         print("<div style=\"position:relative; top: 10px; height:50px; display: inline-block;\">");
         print($rowUser['username']);
         
-        print("</div></a><br>");
+        print("</div></div></a><br>");
        
         
     }
-    print("</div>");
-    print("</div>"); 
-    mysql_free_result($resultUser);
+        mysql_free_result($resultUser);
     mysql_free_result($numberUserResults);
+    }
     mysql_close();
 ?>
 
@@ -171,5 +142,3 @@
     
 </body>
 <html>
-    
-   
