@@ -24,6 +24,7 @@
     <div id="mainContainer"">
 
 <?php
+    global $picture;
    @mysql_connect("localhost", "root", "vertrigo");
 	@mysql_select_db("rwa_projekt");
     $query = "SELECT picID, name, description,username,userID FROM picture,korisnik WHERE uID=userID AND picID='" .$_GET['id'] . "'"; 
@@ -38,13 +39,28 @@
     print("<div class=\"aboutHolder\" style=\"padding:0px;\"> " . $row['description'] . "</div><br>");
     
 
-    
+        
     mysql_free_result($result);
    
     mysql_close();
 ?>
-
+<div id="bottomDiv">
+         <?php
+         if(!(isset($_SESSION['loggedin'])))
+            print("Please log in to comment");
+         else{
+         print("<form id=\"addComment\" method=\"POST\" action=\"insertComment.php\">");
+         print("<input type=\"text\" name=\"comment\" size=\"21\" maxlength=\"200\">");
+         print("<input type=\"hidden\" name=\"pic\" value=\"" . $_GET['id'] . "\">");
+         //print("<input type=\"hidden\" name=\"pic\" value=\"" .$_GET['id'] . "\>");
+         print("<input type=\"submit\" value=\"Comment!\">");
+             
+         print("</form>");
+         }
+         ?>
+    <?php include("comments.php"); ?>
+</div>   
     </div>
-    
+
 </body>
 <html>

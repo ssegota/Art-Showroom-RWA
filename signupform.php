@@ -1,3 +1,11 @@
+<?php
+include('signup.php'); // Includes Login Script
+
+if(isset($_SESSION['login_user'])){
+header("location: profile.php");
+}
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <title>ArtShowroom</title>
@@ -22,7 +30,7 @@
 	
 
     <div id="mainContainer" style="text-align: center;">
-		<form method="get" action="signup.php">
+		<form method="POST" action="signup.php">
             <center>
             <table>
             <tr><td>Username*:</td><td><input type="text" class="tftextinput2" name="uname" size="21" maxlength="24"></td></tr>
@@ -31,14 +39,19 @@
             <tr><td>e-mail*:</td><td><input type="text" class="tftextinput2" name="mail" size="21" maxlength="254"></td></tr>
             
             
-            <tr><td  colspan="2">Only fill in below information if you're planning on <br>buying prints from artists</td></tr>
+            
             <tr><td>Address:</td><td><input type="text" class="tftextinput2" name="address" size="21" maxlength="24"></td></tr>
             <tr><td>City:</td><td><input type="text" class="tftextinput2" name="city" size="21" maxlength="24"></td></tr>
             <tr><td>Country:</td><td><input type="text" class="tftextinput2" name="country" size="21" maxlength="24"></td></tr>
-            <tr><td  colspan="2">Personalize your account a bit by adding an avatar and <br>a short description of you.</td></tr>
+            <tr><td  colspan="2">Personalize your account a bit by adding an avatar, <br>a short description of you and ways to contact you.</td></tr>
             <tr><td>About me:</td><td><input type="textarea" class="tftextinput2" name="about" size="21" maxlength="500"></td></tr>
             <tr><td>Avatar:</td><td><input type="file" class="tftextinput2" name="avatar" size="<10></10>"></td></tr>
+            <tr><td>Instagram:</td><td><input type="text" class="tftextinput2" name="instagram" size="<10></10>"></td></tr>
+            <tr><td>Twitter:</td><td><input type="text" class="tftextinput2" name="twitter" size="<10></10>"></td></tr>
+            <tr><td>Facebook:</td><td><input type="text" class="tftextinput2" name="facebook" size="<10></10>"></td></tr>
+            <tr><td>Tumblr:</td><td><input type="text" class="tftextinput2" name="tumblr" size="<10></10>"></td></tr>
             <tr><td  colspan="2"><input type="submit" value="Sign me up!" class="tfbutton2"></td></tr>
+            
             </table>
             </center>
          </form>   
