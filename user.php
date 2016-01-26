@@ -57,7 +57,7 @@
         print("<a href=\"" .$row['facebook'] . "\"><img class=\"contactLink\" src=\"img/fb.jpg\"></a>");
     print("</div>");
     
-    print("<a href=\"commision.php?id=1\"><div id=\"commission\">Commision me!</div></a>")
+    print("<a href=\"commission.php?id=". $id."\"><div id=\"commission\">Commision me!</div></a>")
 ?>        
 <br>
 <div id="bottomDiv">

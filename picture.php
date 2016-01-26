@@ -34,7 +34,8 @@
     print("<div class=\"userHolder\">" . "<img style=\"position:relative; top: 10px;   height: 250px; width: 375px; padding:0px; display:inline-block; \" src=\"getImg.php?id=". $row['picID'] . "\">" . "</div><br>");
     print("<a href=\"user.php?id=".$row['userID']."\"><div class=\"userHolder2\" style=\"padding:0px;\"><img class=\"avatar2\" src=\"getAvatar.php?uid=". $row['userID'] ."\">");       
 
-    print($row['username'] . "</div></a>");    
+    print($row['username'] . "</div></a>");   
+    print("<a href=\"order.php?id=". $_GET['id']."\"><div id=\"commission\">Buy this print!</div></a>") ;
     print("<div class=\"userHolder\" style=\"padding:0px;\">" . $row['name'] . "</div><br>");
     print("<div class=\"aboutHolder\" style=\"padding:0px;\"> " . $row['description'] . "</div><br>");
     
