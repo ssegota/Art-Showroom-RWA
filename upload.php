@@ -1,11 +1,3 @@
-<?php
-include('login.php'); // Includes Login Script
-
-if(isset($_SESSION['login_user'])){
-header("location: profile.php");
-}
-?>
-<!DOCTYPE html>
 <html>
 <head>
     <title>ArtShowroom</title>
@@ -13,7 +5,8 @@ header("location: profile.php");
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<div id="header">
+
+	<div id="header">
 	
 		<a href="index.php"><img class="logo" src="img/logo.png" ></a>
 		<div id="log">
@@ -26,21 +19,23 @@ header("location: profile.php");
 		</form>
 	<div class="tfclear"></div>
 	</div>
-    
-<div id="mainContainer">
+	
 
-<div id="login">
-<h2>Login Form</h2>
-<form action="" method="post">
-<label>UserName :</label>
-<input id="name" name="username" placeholder="username" type="text">
-<label>Password :</label>
-<input id="password" name="password" placeholder="**********" type="password">
-<input name="submit" type="submit" value=" Login ">
-<br><br>
-<span><?php echo $error; ?></span>
+    <div id="mainContainer">
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="uploadPic.php" method="post" enctype="multipart/form-data">
+    <label>File: </label><input type="file" name="image" />
+    <br>Name: <input type="text" name="title">
+    <br>Description: <input type="text" name="desc">
+    <input type="submit" value="Upload Image" name="submit">
 </form>
-</div>
-</div>
+
 </body>
-</html>
+</html> 
+    </div>
+    
+</body>
+<html>

@@ -1,17 +1,56 @@
+<html>
+<head>
+    <title>ArtShowroom</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+	<div id="header">
+	
+		<a href="index.php"><img class="logo" src="img/logo.png" ></a>
+		<div id="log">
+            <?php include("logandsign.php"); ?>
+        </div>
+	
+	
+		<form method="get" action="searchResult.php">
+		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		</form>
+	<div class="tfclear"></div>
+	</div>
+	
+
+    <div id="mainContainer">
 <?php
-	@mysql_connect("localhost", "root", "vertrigo");
-	@mysql_select_db("rwa_projekt");
-$imagename=$_FILES["avatar"]["name"]; 
+@mysql_connect("localhost", "root", "vertrigo");
+@mysql_select_db("rwa_projekt");
 
-//Get the content of the image and then add slashes to it 
-$imagetmp=addslashes (file_get_contents($_FILES['avatar']['tmp_name']));
+$username="";
+if(isset($_POST['username']))
+    $username = $_POST['username'];
+print($username."<br>");
 
-//Insert the image name and image content in image_table
-    $query = "INSERT INTO korisnik VALUES(NULL, '". strtoupper($_POST['uname'])."', '".md5($_POST['pass'])."', '".$_POST['mail']."', '".$imagetmp."', '".$_POST['about']."', '".$_POST['address']."', '".$_POST['city']."', '".$_POST['country']."', '".$_POST['instagram']."', '".$_POST['twitter']."', '".$_POST['facebook']."', '".$_POST['tumblr']."','0')";
-    
-    print($query);
-	$result = mysql_query($query);
-    
+$password="";
+if(isset($_POST['password']))
+    $password = $_POST['password'];
+print($password."<br>");
+$reppassword="";
+if(isset($_POST['reppassword']))
+    $reppassword = $_POST['reppassword'];
+print($reppassword."<br>");
+$mail="";
+if(isset($_POST['mail']))
+    $mail = $_POST['mail'];
+print($mail."<br>");
 
-    mysql_close();
+
+$query="You have sucesfully registered. Please <a href=\"login_form.php\">log in</a>")";
+print("<br>".$query);
+mysql_query($query);
+
 ?>
+    </div>
+    
+</body>
+<html>

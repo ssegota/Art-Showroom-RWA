@@ -10,12 +10,12 @@
 
 	for($i=0; $i<6; ++$i){
         $id=$i+1;
-        $query = "SELECT picID, username, name, description FROM korisnik, picture WHERE userID=uID AND picID='" . $id . "'";
+        $query = "SELECT picID, username, name, description FROM korisnik, picture WHERE userID=uID ORDER BY RAND()";//AND picID='" . $id . "'";
 	    $result = mysql_query($query);
         
         $row = mysql_fetch_array($result, MYSQL_ASSOC);	
         
-        print("<img style=\"height: 150px; width: 250px; padding:15px; position:absolute; left:" . $left .  "px; top:" . $top ."px;\" src=\"getimg.php?id=". $id . "\">");
+        print("<img style=\"height: 150px; width: 250px; padding:15px; position:absolute; left:" . $left .  "px; top:" . $top ."px;\" src=\"getimg.php?id=". $row['picID'] . "\">");
         print("<a href=picture.php?id=".$id."><div class=\"coverDiv\" style=\" left:" . $left .  "; top:" . $top .";\">");
             print("<h1>" . $row['name'] . "</h1>");
             print("By: " . $row['username'] . "<br>");

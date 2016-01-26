@@ -1,4 +1,5 @@
 <?php
+if (session_status() == PHP_SESSION_NONE)
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 if (isset($_POST['submit'])) {
@@ -25,7 +26,7 @@ header("location: profile.php"); // Redirecting To Other Page
 } else {
 $error = "Username or Password is invalid";
 }
-mysql_close($connection); // Closing Connection
+mysql_close(); // Closing Connection
 }
 }
 ?>
