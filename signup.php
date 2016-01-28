@@ -36,18 +36,16 @@ if(isset($_POST['password']))
     $password = $_POST['password'];
 print($password."<br>");
 $reppassword="";
-if(isset($_POST['reppassword']))
-    $reppassword = $_POST['reppassword'];
-print($reppassword."<br>");
+
 $mail="";
 if(isset($_POST['mail']))
     $mail = $_POST['mail'];
 print($mail."<br>");
 
 
-$query="You have sucesfully registered. Please <a href=\"login_form.php\">log in</a>")";
-print("<br>".$query);
-mysql_query($query);
+$query="INSERT INTO korisnik (username, pass, mail) VALUES ('".$username."','".$password."','".$mail."')";
+
+mysql_query($query)OR print ("ERROR: duplicate username or mail");;
 
 ?>
     </div>

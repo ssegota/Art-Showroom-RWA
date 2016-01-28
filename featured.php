@@ -10,7 +10,7 @@
 
 	for($i=0; $i<6; ++$i){
         $id=$i+1;
-        $query = "SELECT picID, username, name, description FROM korisnik, picture WHERE userID=uID ORDER BY RAND()";//AND picID='" . $id . "'";
+        $query = "SELECT DISTINCT picID, username, name, description FROM korisnik, picture WHERE userID=uID ORDER BY RAND()";//AND picID='" . $id . "'";
 	    $result = mysql_query($query);
         
         $row = mysql_fetch_array($result, MYSQL_ASSOC);	

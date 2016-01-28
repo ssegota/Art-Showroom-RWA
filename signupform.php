@@ -27,7 +27,6 @@
 
          username: <input type="text" name="username" maxlength="24"><br>
          password: <input type="password" name="password" maxlength="32"><br>
-         repeat password: <input type="password" name="reppassword" maxlength="32"><br>
          mail: <input type="text" name="mail" maxlength="254"><br>  
 
          <input type="submit">
